@@ -1,0 +1,14 @@
+public static long getFileCrc32(File file) throws IOException {
+  InputStream inputStream = null;
+  try {
+    inputStream = new BufferedInputStream(new FileInputStream(file));
+    CRC32 crc = new CRC32();
+    int cnt;
+    while ((cnt = inputStream.read()) != -1) {
+      crc.update(cnt);
+    }
+    return crc.getValue();
+  } finally {
+    StreamUtil.closeQuietly(inputStream);
+  }
+}
